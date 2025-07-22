@@ -1,6 +1,20 @@
 const sideMenu = document.querySelector('#sideMenu');
 const navBar = document.querySelector("nav");
 const navLinks = document.querySelector("nav ul");
+ const circularTextEl = document.getElementById("circularText");
+  const text = "MERN • DEVELOPER • ";
+  const radius = 50; 
+  const total = text.length;
+
+
+  text.split("").forEach((char, i) => {
+    const angle = (360 / total) * i;
+    const span = document.createElement("span");
+    span.textContent = char;
+    span.className = "absolute left-1/2 top-1/2 text-xs font-bold tracking-wider";
+    span.style.transform = `rotate(${angle}deg) translateX(${radius}px) rotate(${-angle}deg)`;
+    circularTextEl.appendChild(span);
+  });
 function openMenu(){
     sideMenu.style.transform = 'translateX(-16rem)';
 }
@@ -20,8 +34,7 @@ window.addEventListener('scroll',()=>{
     }
     
 })
-// lightmode and darkmode
-// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+
 if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark')
   } else {
